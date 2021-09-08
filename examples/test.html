@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="../jspsych-6.3.1/jspsych.js"></script>
+    <script src="../jspsych-6.3.1/plugins/jspsych-html-keyboard-response.js"></script>
+    <link rel="stylesheet" href="../jspsych-6.3.1/css/jspsych.css" />
+  </head>
+  <body></body>
+  <script>
+
+
+
+    var stims = [
+      {stim: '<<<<<', gap: 500},
+      {stim: '>>>>>', gap: 500},
+      {stim: '>><>>', gap: 1000},
+      {stim: '<<><<', gap: 1000}
+    ];
+
+    var inst = {
+      type:'html-keyboard-response',
+      stimulus: '最初の教示',
+      choices: jsPsych.NO_KEYS, //これをしないと何かKeyを押すと進んでしまう。
+      trial_duration: 5000
+    };
+
+    var fixation = {
+      type:'html-keyboard-response',
+      stimulus: '+',
+      choices: jsPsych.NO_KEYS, //これをしないと何かKeyを押すと進んでしまう。
+      trial_duration: 5000
+    };
+
+    var trial1 = {
+      type: 'html-keyboard-response',
+      stimulus: jsPsych.timelineVariable('stim'),
+      choices: ['f', 'j'],
+      post_trial_gap: jsPsych.timelineVariable('gap')
+    };
+
+    var block = {
+      timeline: [fixation, trial1],
+      timeline_variables: stims,
+      randomize_order: true
+    };
+
+    jsPsych.init({
+      timeline: [inst,block]
+    });
+  </script>
+</html>
