@@ -45,8 +45,12 @@
       randomize_order: true
     };
 
+    
     jsPsych.init({
-      timeline: [inst,block]
+      timeline: [inst,block],
+      on_finish: function () {
+        jsPsych.data.displayData();
+      }
     });
   </script>
 </html>
